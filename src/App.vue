@@ -1,56 +1,72 @@
 <template>
-  <v-app>
-    <v-app-bar app color="primary" dark>
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
+   <v-app id="inspire">
+    <v-navigation-drawer
+      v-model="drawer"
+      app
+      temporary
+    >
+      <v-list-item>
+          <v-list-item-avatar>
+            <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
+          </v-list-item-avatar>
+  
+          <v-list-item-content>
+            <v-list-item-title>John Leider</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+  
+        <v-divider></v-divider>
+  
+        <v-list dense>
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            link
+          >
+          <router-link to="/About" tag="span">
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
+  
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </router-link>
+          </v-list-item>
+        </v-list>
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+    </v-navigation-drawer>
 
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
+    <v-app-bar flat app>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-toolbar-title>
+        <router-link to="/#" tag="span">My Shop</router-link>
+      </v-toolbar-title>
     </v-app-bar>
 
     <v-main>
-      <HelloWorld />
+      <router-view></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
 
 export default {
   name: "App",
 
   components: {
-    HelloWorld
+    
   },
 
   data: () => ({
-    //
+    drawer: false,
+    items: [
+          { title: 'Home', icon: 'mdi-view-dashboard', link: '' },
+          { title: 'About', icon: 'mdi-forum', Link: '' },
+        ],
   })
 };
 </script>
+
+
