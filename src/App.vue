@@ -22,8 +22,8 @@
             v-for="item in items"
             :key="item.title"
             link
+            :to="item.link"
           >
-          <router-link to="/About" tag="span">
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
@@ -31,7 +31,6 @@
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
-          </router-link>
           </v-list-item>
         </v-list>
 
@@ -62,8 +61,8 @@ export default {
   data: () => ({
     drawer: false,
     items: [
-          { title: 'Home', icon: 'mdi-view-dashboard', link: '' },
-          { title: 'About', icon: 'mdi-forum', Link: '' },
+          { title: 'Home', icon: 'mdi-view-dashboard', link: '/#' },
+          { title: 'About', icon: 'mdi-forum', link: '/About' },
         ],
   })
 };

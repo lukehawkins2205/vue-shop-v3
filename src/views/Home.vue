@@ -1,5 +1,5 @@
 <template>
-        <v-container>
+        <v-container fluid>
             <v-layout row wrap> 
                 <v-flex xs12>
                     <v-carousel
@@ -20,14 +20,18 @@
                         </v-carousel-item>
                     </v-carousel>
                 </v-flex>
+                <CardDeck />
             </v-layout>
         </v-container>
 
 </template>
 
 <script>
+import CardDeck from '@/components/CardDeck.vue'
+
 export default {
     name: 'Home',
+    components: {CardDeck},
     data(){
         return{
             slides:[
