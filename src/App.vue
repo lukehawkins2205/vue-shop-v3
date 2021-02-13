@@ -53,18 +53,31 @@
 
 export default {
   name: "App",
-
-  components: {
-    
-  },
-
   data: () => ({
     drawer: false,
-    items: [
-          { title: 'Home', icon: 'mdi-view-dashboard', link: '/#' },
-          { title: 'About', icon: 'mdi-forum', link: '/About' },
-        ],
-  })
+  }),
+  computed: {
+      items(){
+        let items = [ 
+            { title: 'Home', icon: 'mdi-view-dashboard', link: '/#' },
+            { title: 'About', icon: 'mdi-forum', link: '/About' },
+            { title: 'Products', icon: 'mdi-forum', link: '/Products' },
+            { title: 'Sign Up', icon: 'mdi-forum', link: '/signUp' },
+            { title: 'Sign In', icon: 'mdi-forum', link: '/signIn' },
+          ]
+        if(this.userIsAuthenticated){
+          items = [
+            { title: 'Home', icon: 'mdi-view-dashboard', link: '/#' },
+            { title: 'Overview', icon: 'mdi-forum', link: '/admin/overview' },
+            { title: 'Orders', icon: 'mdi-forum', link: '/Orders' },
+          ]
+        }
+        return items
+      },
+      userIsAuthenticated(){
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    }
 };
 </script>
 

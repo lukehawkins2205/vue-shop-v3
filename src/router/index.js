@@ -2,6 +2,10 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Admin from '../views/Admin.vue'
+import Overview from '../views/Overview.vue'
+import SingleItem from '../views/SingleItem.vue'
+import SignUp from '../views/SignUp.vue'
+import SignIn from '../views/SignIn.vue'
 
 Vue.use(VueRouter);
 
@@ -13,8 +17,29 @@ const routes = [
   },
   {
     path: "/admin",
-    name: "Admin",
-    component: Admin
+    name: "admin",
+    component: Admin,
+  },
+  {
+    path: "/product/:id",
+    name: "product",
+    props: true,
+    component: SingleItem,
+  },
+  {
+    path: "/signup",
+    name: "signup",
+    component: SignUp
+  },
+  {
+    path: "/signin",
+    name: "signin",
+    component: SignIn
+  },
+  {
+    path: "/admin/overview",
+    name: "overview",
+    component: Overview
   },
   {
     path: "/about",

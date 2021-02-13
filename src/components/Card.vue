@@ -1,39 +1,33 @@
 <template>
-     <v-card>
+     <v-card height="100%" @click="openSingleItemWindow(id)" >
 
-    <v-img
-      src="http://www.flightclub.com/media/catalog/product/2/0/201536_1.jpg"
+    <v-img height="50%"
+      contain
+      :src="img"
     ></v-img>
 
     <v-card-title>
-      Yeezy 320
+      {{name}}
     </v-card-title>
 
     <v-card-subtitle>
-      £ 1,200
+      £{{price}}
     </v-card-subtitle>
-
-    <v-card-actions>
-      <v-btn
-        color="black lighten-2"
-        text
-      >
-        BUY NOW
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-    </v-card-actions>
 
   </v-card>
 </template>
 
 <script>
+
 export default {
     name: 'Card',
-    data(){
-        return{
-
+    props: ['price', 'name', 'img', 'id'],
+    components: {},
+    methods:{
+        openSingleItemWindow(id){
+            console.log('The ID is', id)
+            this.$router.push('/product/' + id)
+            this.$store.commit('displayProduct', {value: id})
         }
     }
 }
