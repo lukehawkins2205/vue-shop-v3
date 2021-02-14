@@ -5,6 +5,7 @@ import vuetify from "./plugins/vuetify";
 import {store} from './store'
 import firebase from 'firebase/app'
 import Alert from './shared/Alert.vue'
+import 'firebase/firestore';
 
 Vue.config.productionTip = false;
 Vue.component('app-alert', Alert)
@@ -28,5 +29,6 @@ new Vue({
         this.$store.dispatch('autoSignInUser', user)
       }
     })
+    
   }
 }).$mount("#app");

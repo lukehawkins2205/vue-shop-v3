@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import firebase from 'firebase/app'
 require('firebase/auth')
+require('firebase/firestore')
+
 
 Vue.use(Vuex)
 
@@ -17,6 +19,9 @@ export const store = new Vuex.Store({
         error: null,
     },
     mutations: {
+        addProduct(state, payload){
+            state.loadedProducts.push(payload)
+        },
         displayProduct(state, payload){
             state.user.loadedProductId = payload.id
         },
@@ -34,6 +39,23 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+        addProductToDB({commit}, payload){
+            const product = {
+                name: payload.name,
+                price: payload.price,
+                img: payload.img,
+                cat: payload.cat
+            }
+            firebase.firestore().collection("products").add(product)
+                .then((docRef) => {
+                    commit('addProduct', product)
+                    console.log("Document written with ID: ", docRef.id);
+                })
+                .catch((error) => {
+                    console.error("Error adding document: ", error);
+                });
+
+        },
         signUpUser({commit}, payload){
             commit('setLoading', true)
             commit('clearError')
