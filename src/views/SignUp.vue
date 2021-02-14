@@ -1,5 +1,10 @@
 <template>
 <v-container>
+    <v-row v-if="error">
+        <v-col>
+            <app-alert @dismissed="onDismissed" :text="error.message"></app-alert>
+        </v-col>
+    </v-row>
     <v-row>
         <v-col xs='12' md='6'>
 
@@ -30,8 +35,13 @@
                 type="password"
                 ></v-text-field>
 
-                <v-btn type="submit">
-                    Sign Up
+                <v-btn
+                type="submit"
+                :loading="loading"
+                class="ma-1"
+                plain
+                >
+                Sign Up
                 </v-btn>
 
             </v-form>
@@ -49,7 +59,7 @@ export default {
             username: '',
             email: '',
             password: '',
-            confirmPassword: ''
+            confirmPassword: '',
         }
     },
     computed: {
@@ -58,6 +68,12 @@ export default {
         },
         user(){
             return this.$store.getters.user
+        },
+        error(){
+            return this.$store.getters.error
+        },
+        loading(){
+            return this.$store.getters.loading
         }
     },
     watch: {
@@ -69,9 +85,12 @@ export default {
     },
     methods: {
         onSignUp(){
-            console.log({email: this.email, password: this.password, confirmPassword: this.confirmPassword})
             this.$store.dispatch('signUpUser', {email: this.email, password: this.password})
             this.$refs.form.reset()
+        },
+        onDismissed(){
+            console.log('Dismissed Log')
+            this.$store.dispatch('clearError')
         }
     }
 }

@@ -4,9 +4,10 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import {store} from './store'
 import firebase from 'firebase/app'
+import Alert from './shared/Alert.vue'
 
 Vue.config.productionTip = false;
-
+Vue.component('app-alert', Alert)
 new Vue({
   router,
   vuetify,
@@ -21,6 +22,11 @@ new Vue({
       messagingSenderId: '64803745290',
       appId: '1:64803745290:web:ee888996545e66ca9439f3',
       measurementId: 'G-C9EWN08CBT'
+    })
+    firebase.auth().onAuthStateChanged(user => {
+      if(user){
+        this.$store.dispatch('autoSignInUser', user)
+      }
     })
   }
 }).$mount("#app");

@@ -32,6 +32,17 @@
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item v-if="userIsAuthenticated" @click="onLogOut">
+            <v-list-item-icon>
+              <v-icon>mdi-forum</v-icon>
+            </v-list-item-icon>
+  
+            <v-list-item-content>
+              <v-list-item-title>Sign Out</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
         </v-list>
 
     </v-navigation-drawer>
@@ -60,22 +71,29 @@ export default {
       items(){
         let items = [ 
             { title: 'Home', icon: 'mdi-view-dashboard', link: '/#' },
-            { title: 'About', icon: 'mdi-forum', link: '/About' },
-            { title: 'Products', icon: 'mdi-forum', link: '/Products' },
+            { title: 'About', icon: 'mdi-forum', link: '/about' },
+            { title: 'Products', icon: 'mdi-forum', link: '/products' },
             { title: 'Sign Up', icon: 'mdi-forum', link: '/signUp' },
-            { title: 'Sign In', icon: 'mdi-forum', link: '/signIn' },
+            { title: 'Sign In', icon: 'mdi-forum', link: '/login' },
           ]
         if(this.userIsAuthenticated){
           items = [
             { title: 'Home', icon: 'mdi-view-dashboard', link: '/#' },
             { title: 'Overview', icon: 'mdi-forum', link: '/admin/overview' },
-            { title: 'Orders', icon: 'mdi-forum', link: '/Orders' },
+            { title: 'Orders', icon: 'mdi-forum', link: '/admin/Orders' },
+            { title: 'Products', icon: 'mdi-forum', link: '/admin/products' },
           ]
         }
         return items
       },
       userIsAuthenticated(){
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      }
+    },
+    methods: {
+      onLogOut(){
+        this.$store.dispatch('signOutUser')
+        this.$router.push('/')
       }
     }
 };
