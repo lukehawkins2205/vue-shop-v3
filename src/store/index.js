@@ -9,11 +9,7 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
     state:{
-        loadedProducts: [
-            {name: 'yeezy 320', img: 'http://www.flightclub.com/media/catalog/product/2/0/201536_1.jpg', price: 1299, id: '1', cat: 'shoe'},
-            {name: 'Jordan Black', img: 'https://media.gq-magazine.co.uk/photos/5ea070e01027960008de3b4a/master/w_1920,c_limit/20200422-jordan-19.jpg', price: 679, id: '2', cat: 'shoe'},
-            {name: 'Nike Vapormax', img: 'https://cdn.shopify.com/s/files/1/0013/3074/1303/products/Nike_Air_Vapormax_Flyknit_3_White_600x.jpg?v=1554149189', price: 399, id: '3', cat: 'running'}
-        ],
+        loadedProducts: [],
         user: null,
         loading: false,
         error: null,
@@ -39,16 +35,35 @@ export const store = new Vuex.Store({
         }
     },
     actions: {
+        loadProducts({commit}){
+
+            firebase.firestore().collection("products")
+                .get()
+                    .then((querySnapshot) => {
+                        querySnapshot.forEach((doc) => {
+                            const product = {
+                                ...doc.data(),
+                                id: doc.id
+                            }                
+                            commit('addProduct', product)
+                        });
+                        console.log('vuex STATE Loaded Products', this.state.loadedProducts)
+            });
+        },
         addProductToDB({commit}, payload){
             const product = {
                 name: payload.name,
                 price: payload.price,
                 img: payload.img,
-                cat: payload.cat
+                cat: payload.cat,
+                description: payload.description
             }
             firebase.firestore().collection("products").add(product)
                 .then((docRef) => {
-                    commit('addProduct', product)
+                    commit('addProduct', {
+                        ...product,
+                        id: docRef.id
+                    })
                     console.log("Document written with ID: ", docRef.id);
                 })
                 .catch((error) => {

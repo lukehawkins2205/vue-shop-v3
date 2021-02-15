@@ -29,6 +29,6 @@ new Vue({
         this.$store.dispatch('autoSignInUser', user)
       }
     })
-    
+    this.$store.dispatch('loadProducts')
   }
 }).$mount("#app");

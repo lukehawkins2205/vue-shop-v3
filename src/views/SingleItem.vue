@@ -1,12 +1,6 @@
 <template>
     <v-container>
       <v-row>
-        <v-breadcrumbs
-        :items="items"
-        divider="-"
-      ></v-breadcrumbs>
-      </v-row>
-      <v-row>
         <v-col 
           xs='12'
           md='6'>
@@ -49,21 +43,5 @@ export default {
             return this.$store.getters.loadedProduct(this.id)
         }
     },
-    data(){
-      return{
-        items: [
-      {
-        text: 'Home',
-        disabled: false,
-        href: '/#',
-      },
-      {
-        text: this.product.name,
-        disabled: true,
-        href: '/products/' + this.product.id,
-      },
-    ],
-      }
-    }
 }
 </script>
