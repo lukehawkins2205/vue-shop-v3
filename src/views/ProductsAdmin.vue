@@ -7,7 +7,7 @@
     </v-row>
     <v-row>
        <v-col>
-           <ProductsAdminAdd />
+           <ProductsAdminList />
        </v-col>
     </v-row>
 </v-container>
@@ -15,12 +15,12 @@
 
 
 <script>
-import ProductsAdminAdd from "@/components/ProductsAdmin/ProductsAdminAdd.vue";
+import ProductsAdminList from "@/components/ProductsAdmin/ProductsAdminList.vue";
 
 export default {
     name: 'ProductsAdmin',
     components: {
-        ProductsAdminAdd
+        ProductsAdminList
     }
 }
 </script>
